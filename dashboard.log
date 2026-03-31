@@ -10,3 +10,18 @@
 - Local:         http://localhost:18790
 - Network:       http://172.18.0.2:18790
 ✓ Ready in 4.2s
+Failed to fetch project details: Error: ENOTDIR: not a directory, scandir '/home/node/.openclaw/workspace/projects/project aignite/workshop/syllabus.md'
+    at w (.next/server/chunks/[root-of-the-server]__0q4ui.w._.js:1:1734) {
+  errno: -20,
+  code: 'ENOTDIR',
+  syscall: 'scandir',
+  path: '/home/node/.openclaw/workspace/projects/project aignite/workshop/syllabus.md'
+}
+▲ Next.js 16.2.1
+- Local:         http://localhost:18790
+- Network:       http://172.18.0.2:18790
+✓ Ready in 3.9s
+▲ Next.js 16.2.1
+- Local:         http://localhost:18790
+- Network:       http://172.18.0.2:18790
+✓ Ready in 3.7s

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+// import "./globals.css";
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,6 +19,20 @@ export default function RootLayout({
     <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
       <head>
         <meta name="referrer" content="no-referrer" />
+        <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+        <style dangerouslySetInnerHTML={{ __html: `
+          @theme {
+            --color-emerald-500: #10b981;
+            --color-zinc-50: #fafafa;
+            --color-zinc-400: #a1a1aa;
+            --color-zinc-500: #71717a;
+            --color-zinc-600: #52525b;
+            --color-zinc-700: #3f3f46;
+            --color-zinc-800: #27272a;
+            --color-zinc-900: #18181b;
+            --color-zinc-950: #09090b;
+          }
+        ` }} />
       </head>
       <body className={`${inter.className} bg-zinc-950 text-zinc-50 antialiased`}>
         <div className="flex h-screen overflow-hidden">

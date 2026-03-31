@@ -6,6 +6,23 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ChevronLeft, FileText, Folder, Clock, Hash, Layout } from 'lucide-react';
 
+const MarkdownComponents: any = {
+  h1: ({node, ...props}: any) => <h1 className="text-2xl font-bold mb-6 text-zinc-50 border-b border-zinc-800 pb-4 mt-8 first:mt-0" {...props} />,
+  h2: ({node, ...props}: any) => <h2 className="text-xl font-bold mb-4 text-zinc-200 mt-8" {...props} />,
+  h3: ({node, ...props}: any) => <h3 className="text-lg font-bold mb-3 text-zinc-300 mt-6" {...props} />,
+  p: ({node, ...props}: any) => <p className="text-zinc-400 leading-relaxed mb-4" {...props} />,
+  ul: ({node, ...props}: any) => <ul className="list-disc list-inside mb-4 text-zinc-400 gap-2 flex flex-col" {...props} />,
+  li: ({node, ...props}: any) => <li className="leading-relaxed" {...props} />,
+  code: ({node, ...props}: any) => <code className="bg-zinc-800/50 px-1.5 py-0.5 rounded font-mono text-emerald-400 text-xs" {...props} />,
+  pre: ({node, ...props}: any) => <pre className="bg-zinc-950 p-6 rounded-xl border border-zinc-800 my-6 overflow-x-auto" {...props} />,
+  a: ({node, ...props}: any) => <a className="text-emerald-500 hover:underline" {...props} />,
+  blockquote: ({node, ...props}: any) => <blockquote className="border-l-4 border-emerald-500/30 pl-6 italic text-zinc-500 my-6" {...props} />,
+  hr: ({node, ...props}: any) => <hr className="border-zinc-800 my-10" {...props} />,
+  table: ({node, ...props}: any) => <table className="w-full border-collapse mb-6" {...props} />,
+  th: ({node, ...props}: any) => <th className="text-left border-b border-zinc-800 p-3 text-xs font-bold uppercase tracking-widest text-zinc-500" {...props} />,
+  td: ({node, ...props}: any) => <td className="p-3 border-b border-zinc-900 text-sm text-zinc-400" {...props} />,
+};
+
 function ProjectContent({ id }: { id: string }) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -94,8 +111,8 @@ function ProjectContent({ id }: { id: string }) {
 
         <article className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-8 lg:p-12 shadow-xl">
           {data.content ? (
-            <div className="markdown-content prose prose-invert max-w-none prose-emerald prose-sm lg:prose-base">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <div className="markdown-content max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={MarkdownComponents}>
                 {data.content}
               </ReactMarkdown>
             </div>
@@ -106,24 +123,6 @@ function ProjectContent({ id }: { id: string }) {
             </div>
           )}
         </article>
-        
-        <style jsx global>{`
-          .markdown-content h1 { @apply text-2xl font-bold mb-6 text-zinc-50 border-b border-zinc-800 pb-4 mt-8 first:mt-0; }
-          .markdown-content h2 { @apply text-xl font-bold mb-4 text-zinc-200 mt-8; }
-          .markdown-content h3 { @apply text-lg font-bold mb-3 text-zinc-300 mt-6; }
-          .markdown-content p { @apply text-zinc-400 leading-relaxed mb-4; }
-          .markdown-content ul { @apply list-disc list-inside mb-4 text-zinc-400 gap-2 flex flex-col; }
-          .markdown-content li { @apply leading-relaxed; }
-          .markdown-content code { @apply bg-zinc-800/50 px-1.5 py-0.5 rounded font-mono text-emerald-400 text-xs; }
-          .markdown-content pre { @apply bg-zinc-950 p-6 rounded-xl border border-zinc-800 my-6 overflow-x-auto; }
-          .markdown-content pre code { @apply bg-transparent p-0 text-zinc-300; }
-          .markdown-content a { @apply text-emerald-500 hover:underline; }
-          .markdown-content blockquote { @apply border-l-4 border-emerald-500/30 pl-6 italic text-zinc-500 my-6; }
-          .markdown-content hr { @apply border-zinc-800 my-10; }
-          .markdown-content table { @apply w-full border-collapse mb-6; }
-          .markdown-content th { @apply text-left border-b border-zinc-800 p-3 text-xs font-bold uppercase tracking-widest text-zinc-500; }
-          .markdown-content td { @apply p-3 border-b border-zinc-900 text-sm text-zinc-400; }
-        `}</style>
       </div>
     );
   }
@@ -186,8 +185,12 @@ function ProjectContent({ id }: { id: string }) {
              <h2 className="text-xs font-bold text-zinc-500 uppercase tracking-[0.2em]">
                {subpath === '' ? 'Overview' : `${pathParts[pathParts.length-1]} Overview`}
              </h2>
-             <div className="text-sm text-zinc-300 leading-relaxed font-medium markdown-content prose-sm prose-emerald prose-invert">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+             <div className="text-sm text-zinc-300 leading-relaxed font-medium">
+                <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+                  p: ({node, ...props}: any) => <p className="text-zinc-300 leading-relaxed" {...props} />,
+                  code: ({node, ...props}: any) => <code className="bg-zinc-800/50 px-1 py-0.5 rounded font-mono text-emerald-400 text-xs" {...props} />,
+                  strong: ({node, ...props}: any) => <strong className="text-zinc-50 font-bold" {...props} />,
+                }}>
                   {data.summary}
                 </ReactMarkdown>
              </div>
@@ -257,8 +260,13 @@ function ProjectContent({ id }: { id: string }) {
                <h2 className="text-xs font-bold text-zinc-500 uppercase tracking-[0.2em]">Readme</h2>
                <div className="bg-zinc-900/10 border border-zinc-800/50 rounded-xl p-6 shadow-inner">
                  <div className="max-h-[500px] overflow-y-auto pr-4 custom-scrollbar">
-                   <div className="markdown-content prose prose-invert prose-emerald prose-sm">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                   <div className="markdown-content">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+                        ...MarkdownComponents,
+                        h1: ({node, ...props}: any) => <h1 className="text-lg font-bold mb-4 text-zinc-50 border-b border-zinc-800 pb-2" {...props} />,
+                        h2: ({node, ...props}: any) => <h2 className="text-base font-bold mb-3 text-zinc-200 mt-6" {...props} />,
+                        p: ({node, ...props}: any) => <p className="text-xs text-zinc-400 leading-relaxed mb-3" {...props} />,
+                      }}>
                         {data.fullReadme}
                       </ReactMarkdown>
                    </div>
