@@ -1,0 +1,12 @@
+
+> mission-control@0.1.0 start
+> next start --port 18790
+
+▲ Next.js 16.2.1
+- Local:         http://localhost:18790
+- Network:       http://172.18.0.2:18790
+✓ Ready in 6.9s
+▲ Next.js 16.2.1
+- Local:         http://localhost:18790
+- Network:       http://172.18.0.2:18790
+✓ Ready in 4.2s
